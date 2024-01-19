@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    <title> {{ title }} </title>
+{% endblock %}
+
+{% block content %}
+
+    <h1 class="color-for-head-heads_or_tails">
+        Результаты {{ number_throws }} бросков кубика:
+    </h1>
+
+    <ol>
+        {% for one_resalt in resalt %}
+        <li>{{ one_resalt }}</li>
+        {% endfor %}
+    </ol>
+
+{% endblock %}

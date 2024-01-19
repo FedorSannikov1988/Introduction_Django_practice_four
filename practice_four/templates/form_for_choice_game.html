@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    <title> {{ title }} </title>
+{% endblock %}
+
+{% block content %}
+
+    <h1 class="form_for_choice_game">
+        Выбор игры:
+    </h1>
+
+    <form action="{% url 'form_for_choice_game' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_div }}
+        <input type="submit" value="Отправить">
+    </form>
+
+{% endblock %}
