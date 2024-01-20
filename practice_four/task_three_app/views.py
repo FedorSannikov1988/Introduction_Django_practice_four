@@ -1,6 +1,6 @@
-from django.shortcuts import render
-from task_three_app.forms import AddAuthor, AddArticle
+from django.shortcuts import render, get_object_or_404
 from task_three_app.models import Article, Author, Comment
+from task_three_app.forms import AddAuthor, AddArticle, AddComment
 
 
 def get_all_articles(request):
@@ -38,8 +38,25 @@ def get_all_articles_author_name(request, author_name: str):
 
 def see_article_by_id(request, id_article: int):
 
-    article = \
-        Article.objects.get(pk=id_article)
+    article = get_object_or_404(Article, pk=id_article)
+
+    if request.method == 'POST':
+
+        form_add_comment = AddComment(request.POST)
+
+        if form_add_comment.is_valid():
+
+            author = form_add_comment.cleaned_data['author']
+            comment = form_add_comment.cleaned_data['comment']
+
+            comment_for_save_db = \
+                Comment(author=author,
+                        article=article,
+                        comment=comment)
+            comment_for_save_db.save()
+
+    else:
+        form_add_comment = AddComment()
 
     article.number_views += 1
     article.save()
@@ -50,6 +67,7 @@ def see_article_by_id(request, id_article: int):
     context = {
         "article": article,
         "comments": comments,
+        "form_add_comment": form_add_comment,
     }
 
     return render(request, "see_article_by_id.html", context)

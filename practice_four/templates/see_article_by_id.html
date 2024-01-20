@@ -68,4 +68,12 @@
 
     {% endif %}
 
+    <form action="{% url 'see_article_by_id' article.pk %}" method="post">
+
+        {% csrf_token %}
+        {{ form_add_comment.as_div }}
+        <input type="submit" value="Отправить">
+
+    </form>
+
 {% endblock %}

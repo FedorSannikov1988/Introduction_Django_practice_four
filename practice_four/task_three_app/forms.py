@@ -73,3 +73,17 @@ class AddArticle(forms.Form):
                                     'required': 'Пожалуйста, заполните поле "Категория".'
                                 }
     )
+
+
+class AddComment(forms.Form):
+
+    author = forms.ModelChoiceField(queryset=Author.objects.all(),
+                                    empty_label='Выберите автора комментария',
+                                    widget=forms.Select(attrs={'class': 'form-control'}),
+                                    label='Автор:'
+    )
+
+    comment = forms.CharField(widget=forms.Textarea(
+                                attrs={'class': 'form-control'}),
+                                label='Содержание'
+    )
