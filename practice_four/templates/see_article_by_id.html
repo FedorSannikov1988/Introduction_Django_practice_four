@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    <title> {{ article.title }} </title>
+{% endblock %}
+
+{% block content %}
+
+    <h1 class="color-for-head-see_article_by_id">
+        {{ article.title }}
+    </h1>
+
+    <p> Содержание: <br>
+        {{ article.content }}
+    </p>
+
+    <p> Дата публикации: <br>
+        {{ article.date_publication }}
+    </p>
+
+    <p> Автор: <br>
+        {{ article.author.get_name_and_surname  }}
+    </p>
+
+    <p> Категория: <br>
+        {{ article.category }}
+    </p>
+
+    <p> Количество просмотров: <br>
+        {{ article.number_views }}
+    </p>
+
+    <p> Статус публиккации: <br>
+        {{ article.publish }}
+    </p>
+
+    {% if comments %}
+
+    <h2 class="color-for-head-see_article_by_id">
+    Комментарии:
+    </h2>
+
+        {% for one_comment in comments %}
+
+            <p>
+
+                {% if one_comment.date_creation != one_comment.date_change %}
+                    Комментарий изминен <br>
+                {% endif %}
+
+                Автор: <br>
+                {{ one_comment.author.get_name_and_surname }} <br>
+                Комментарий: <br>
+                {{ one_comment.comment }} <br>
+                Дата публикации: <br>
+                {{ one_comment.date_creation }} <br>
+                Дата изминения: <br>
+                {{ one_comment.date_change }} <br>
+
+            </p>
+
+        {% endfor %}
+
+    {% endif %}
+
+{% endblock %}

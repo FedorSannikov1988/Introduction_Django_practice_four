@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    <title> {{ title }} </title>
+{% endblock %}
+
+{% block content %}
+
+    <h1 class="color-for-head-get_all_articles">
+        Заголовки всех статей из базы данных:
+    </h1>
+    {% if articles %}
+
+        <ul>
+           {% for one_article in articles %}
+               <li>{{ one_article.title }}</li>
+           {% endfor %}
+        </ul>
+
+    {% endif %}
+
+
+
+{% endblock %}

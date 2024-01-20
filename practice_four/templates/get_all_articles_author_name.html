@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    <title> {{ title }} </title>
+{% endblock %}
+
+{% block content %}
+
+    <h1 class="color-for-head-get_all_articles_author_name">
+        Все статьи {{ author_name }}:
+    </h1>
+
+    {% if articles %}
+        <ol>
+            {% for one_article in articles %}
+            <li>
+                {% if one_article.publish %}
+
+                    <a href="{% url 'see_article_by_id' one_article.pk %}">
+                        {{ one_article.title }}
+                    </a>
+
+                {% elif not one_article.publish %}
+
+                    {{ one_article.title }}
+
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ol>
+    {% elif not articles  %}
+        <p>У автора нет статей </p>
+    {% endif %}
+
+{% endblock %}
